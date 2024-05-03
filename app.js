@@ -9,7 +9,9 @@ var loginEmailfield = document.querySelector("#login-email");
 var signUpPasswordfield = document.querySelector("#signup-password");
 var signUpEmailfield = document.querySelector("#signup-email");
 var userInputValues = [];
+
 var userLogIn = false;
+var currentUserIndex = 0;
 var signUpLink = document
   .querySelector("#sign-up-link")
   .addEventListener("click", function (e) {
@@ -32,13 +34,20 @@ var logOut = document
     e.preventDefault();
     loginPasswordfield.value = null;
     loginEmailfield.value = null;
+    signUpPasswordfield.value = null;
+    signUpEmailfield.value = null;
     signUpContainer.style.display = "none";
     dashboard.style.display = "none";
     logInContainer.style.display = "block";
   });
-  // console.log(logOut);
-  var userName = document.querySelector("#user-name");
-  var setUserName = document.querySelector(".set-user-name");
+// console.log(logOut);
+var depositAmount;
+var userName = document.querySelector("#user-name");
+var setUserName = document.querySelector(".set-user-name");
+var deposit = document.querySelector("#deposit");
+var depositButton = document.querySelector("#deposit-button");
+var withDraw = document.querySelector("#withdraw");
+var withDrawButton = document.querySelector("#withdraw-button");
 
 signUpContainer.addEventListener("submit", function (e) {
   e.preventDefault();
@@ -68,11 +77,14 @@ signUpContainer.addEventListener("submit", function (e) {
     alert("you already have account");
     // console.log("wrong");
   }
+  // localStorage.setItem("userData", JSON.stringify(userInputValues));
+  // const userData = localStorage.getItem("userData");
 });
 logInContainer.addEventListener("submit", function (e) {
   e.preventDefault();
+  deposit.value = null;
   if (userName) {
-    console.log("done")
+    // console.log("done");
     setUserName.innerText = "Hi " + userName.value;
   }
   // console.log("setuserName", setUserName);
@@ -81,10 +93,10 @@ logInContainer.addEventListener("submit", function (e) {
   var loginInputValues = [loginPasswordfield.value, loginEmailfield.value];
   // console.log("loginInputValues", loginInputValues);
   if (loginInputValues[1]) {
-    var checkUser;
-    checkUser = userInputValues.find(function (user) {
+    currentUserIndex = userInputValues.findIndex(function (user) {
       return user.email === loginInputValues[1];
     });
+    var checkUser = userInputValues[currentUserIndex];
     // console.log(checkUser);
     if (checkUser) {
       if (checkUser.password === loginInputValues[0]) {
@@ -93,6 +105,8 @@ logInContainer.addEventListener("submit", function (e) {
           // console.log("condition true horhi h");
           logInContainer.style.display = "none";
           dashboard.style.display = "block";
+          document.getElementById("current-amount").innerText =
+            checkUser.amount + "pkr";
           // console.log("correct1");
         }
       } else {
@@ -100,8 +114,29 @@ logInContainer.addEventListener("submit", function (e) {
         alert("Invalid email or password");
       }
     }
-    if (!checkUser) {
-      alert("First create your account and then login");
-    }
   }
+});
+depositButton.addEventListener("click", function () {
+  // e.preventDefault();
+  // console.log("done");x`
+  var inputValue = +deposit.value;
+  var currentValue = +userInputValues[currentUserIndex].amount;
+  userInputValues[currentUserIndex].amount = currentValue + inputValue;
+  document.getElementById("current-amount").innerText =
+    userInputValues[currentUserIndex].amount + "pkr";
+  deposit.value = null;
+});
+withDrawButton.addEventListener("click", function () {
+  // e.preventDefault();
+  // console.log("done");x`
+  var inputValue = +withDraw.value;
+  var currentValue = +userInputValues[currentUserIndex].amount;
+  if (inputValue > currentValue) {
+    alert("you don't have enough money");
+  } else {
+    userInputValues[currentUserIndex].amount = currentValue - inputValue;
+  }
+  document.getElementById("current-amount").innerText =
+    userInputValues[currentUserIndex].amount + "pkr";
+  withDraw.value = null;
 });

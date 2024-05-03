@@ -60,24 +60,27 @@
         <p>Already have an account? <a id="log-in-link">Login</a></p>
       </div>
       <div class="dashboard-container">
-        <h1 class="set-user-name" style="text-align: center;"></h1>
+        <h1 class="set-user-name" style="text-align: center"></h1>
         <h2>Welcome to Your Banking System</h2>
         <div class="balance">
           <p>Your Current Balance:</p>
-          <p>$5000</p>
+          <p id="current-amount"></p>
           <!-- Replace this with actual current balance value -->
         </div>
-        <form id="transaction-form">
-          <div class="form-group">
-            <label for="deposit">Deposit Amount:</label>
-            <input type="number" id="deposit" name="deposit" required />
-          </div>
-          <div class="form-group">
-            <label for="withdraw">Withdraw Amount:</label>
-            <input type="number" id="withdraw" name="withdraw" required />
-          </div>
-          <button type="submit">Submit</button>
-        </form>
+        <div class="form-group">
+          <label for="deposit" style="margin-bottom: 10px"
+            >Deposit Amount:</label
+          >
+          <input type="number" id="deposit" name="deposit" required />
+        </div>
+        <button id="deposit-button">Deposit</button>
+        <div class="form-group" style="margin-top: 10px">
+          <label for="withdraw" style="margin-bottom: 10px"
+            >Withdraw Amount:</label
+          >
+          <input type="number" id="withdraw" name="withdraw" required />
+        </div>
+        <button id="withdraw-button">Withdraw</button>
         <a class="logOut">Logout</a>
       </div>
     </div>

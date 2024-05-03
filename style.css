@@ -74,7 +74,7 @@ body {
   
   .dashboard-container {
     background-color: #fff;
-    padding: 20px;
+    padding: 50px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -120,14 +120,16 @@ body {
     background-color: #0056b3;
   }
   
-  .logout {
+  .logOut {
+    margin-top: 10px;
+    cursor: pointer;
     display: block;
     margin-top: 20px;
     color: #007bff;
     text-decoration: none;
   }
   
-  .logout:hover {
+  .logOut:hover {
     text-decoration: underline;
   }
   
