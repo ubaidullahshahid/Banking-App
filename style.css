@@ -16,7 +16,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
   .signup-container {
-    display: none;
+    /* display: none; */
     background-color: #fff;
     padding: 40px 60px;
     border-radius: 8px;
@@ -62,9 +62,9 @@ body {
     text-decoration: underline;
   }
   
-  .dashboard-container{
+  /* .dashboard-container{
     display: none;
-  }
+  } */
   #sign-up-link{
     cursor: pointer;
   }

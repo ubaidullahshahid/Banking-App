@@ -1,98 +1,70 @@
 // re-usable variables
-
+var deposit;
+var withDraw;
 var userInputValues = JSON.parse(localStorage.getItem("userData")) || [];
-var dashboard = document.querySelector(".dashboard-container");
-var userName = document.querySelector("#user-name");
-var setUserName = document.querySelector(".set-user-name");
 var currentUserIndex = 0;
 
-// signup Link variable and onclick function
+document.addEventListener("DOMContentLoaded", function (e) {
+  withDraw = document.querySelector("#withdraw");
+  deposit = document.querySelector("#deposit");
+  var setUserName = document.querySelector("#set-userName");
+  var checkUserName = localStorage.getItem("userName");
+  console.log("CheckUsername", checkUserName);
+  setUserName.innerText = "Hi " + checkUserName;
+  var currentAmount = document.querySelector("#current-amount");
+  var checkUserCurrentAmount = localStorage.getItem("userAmount");
+  currentAmount.innerText = checkUserCurrentAmount + "Rs";
+});
 
-var signUpLink = document
-  .querySelector("#sign-up-link")
-  .addEventListener("click", function (e) {
-    e.preventDefault();
-    logInContainer.style.display = "none";
-    signUpContainer.style.display = "block";
-  });
-
-// logIn Link variable and on onclick function
-
-var logInLink = document
-  .querySelector("#log-in-link")
-  .addEventListener("click", function (e) {
-    e.preventDefault();
-    signUpContainer.style.display = "none";
-    logInContainer.style.display = "block";
-  });
-
-// signup variables
-
-var signUpContainer = document.querySelector(".signup-container");
 var signUpPasswordfield = document.querySelector("#signup-password");
 var signUpEmailfield = document.querySelector("#signup-email");
+var userName = document.querySelector("#user-name");
 
 // signup Function
 
-signUpContainer.addEventListener("submit", function (e) {
-  e.preventDefault();
-  signUpPasswordfield.value;
-  signUpEmailfield.value;
+function signUp() {
   userName.value;
-  // console.log("userName", userName.value);
   var signUpInputValues = [signUpPasswordfield.value, signUpEmailfield.value];
   var newUserInputValues = {
     email: signUpInputValues[1],
     password: signUpInputValues[0],
     amount: 0,
-    userName: userName.value,
+    userName: userName1.value,
   };
   var signUpCheckUser;
   signUpCheckUser = userInputValues.find(function (user) {
     return user.email === signUpInputValues[1];
   });
-  // console.log("signUpCheckUser", signUpCheckUser);
-
   if (!signUpCheckUser) {
     userInputValues.push(newUserInputValues);
-    logInContainer.style.display = "block";
-    signUpContainer.style.display = "none";
+    window.location.href = "/Components/Log-in-user/login.html";
   } else {
     alert("you already have account");
   }
   localStorage.setItem("userData", JSON.stringify(userInputValues));
-});
+}
 
 // login variables
 
-var logInContainer = document.querySelector(".login-container");
 var loginPasswordfield = document.querySelector("#login-password");
 var loginEmailfield = document.querySelector("#login-email");
 var userLogIn = false;
 
 // login Function
-
-logInContainer.addEventListener("submit", function (e) {
-  e.preventDefault();
-  deposit.value = null;
-  loginPasswordfield.value;
-  loginEmailfield.value;
+function logIn() {
   var loginInputValues = [loginPasswordfield.value, loginEmailfield.value];
   if (loginInputValues[1]) {
     currentUserIndex = userInputValues.findIndex(function (user) {
       return user.email === loginInputValues[1];
     });
-    // console.log("currentUserIndex", currentUserIndex);
     var checkUser = userInputValues[currentUserIndex];
     if (checkUser) {
       if (checkUser.password === loginInputValues[0]) {
         userLogIn = true;
         if (userLogIn) {
-          logInContainer.style.display = "none";
-          dashboard.style.display = "block";
-          document.getElementById("current-amount").innerText =
-            checkUser.amount + "RS";
-          setUserName.innerText = "Hi " + checkUser.userName;
+          localStorage.setItem("userName", checkUser.userName);
+          localStorage.setItem("userAmount", checkUser.amount);
+          window.location.href = "/index.html";
         }
       } else {
         alert("Invalid email or password");
@@ -102,20 +74,18 @@ logInContainer.addEventListener("submit", function (e) {
       alert("You Don't have account");
     }
   }
-});
-
-// deposit variables
-
-var deposit = document.querySelector("#deposit");
-var depositButton = document.querySelector("#deposit-button");
-
+}
 // deposit Function
 
-depositButton.addEventListener("click", function () {
+function handleDeposit() {
   var inputValue = +deposit.value;
   if (inputValue > 0) {
     userInputValues[currentUserIndex].amount += inputValue;
     localStorage.setItem("userData", JSON.stringify(userInputValues));
+    localStorage.setItem(
+      "userAmount",
+      userInputValues[currentUserIndex].amount
+    );
     document.getElementById("current-amount").innerText =
       userInputValues[currentUserIndex].amount + "RS";
     deposit.value = null;
@@ -123,21 +93,20 @@ depositButton.addEventListener("click", function () {
   } else {
     alert("Please enter a valid amount.");
   }
-});
-
-// withdraw variables
-
-var withDraw = document.querySelector("#withdraw");
-var withDrawButton = document.querySelector("#withdraw-button");
+}
 
 // withdraw Function
 
-withDrawButton.addEventListener("click", function () {
+function withdraw() {
   var inputValue = +withDraw.value;
   var currentUser = userInputValues[currentUserIndex];
   if (inputValue > 0 && inputValue <= currentUser.amount) {
     currentUser.amount -= inputValue;
     localStorage.setItem("userData", JSON.stringify(userInputValues));
+    localStorage.setItem(
+      "userAmount",
+      userInputValues[currentUserIndex].amount
+    );
     document.getElementById("current-amount").innerText =
       currentUser.amount + "RS";
     withDraw.value = null;
@@ -145,19 +114,4 @@ withDrawButton.addEventListener("click", function () {
   } else {
     alert("You Don't have  enough amount to withdraw");
   }
-});
-
-// logOut variable and on click function
-
-var logOut = document
-  .querySelector(".logOut")
-  .addEventListener("click", function (e) {
-    e.preventDefault();
-    loginPasswordfield.value = null;
-    loginEmailfield.value = null;
-    signUpPasswordfield.value = null;
-    signUpEmailfield.value = null;
-    signUpContainer.style.display = "none";
-    dashboard.style.display = "none";
-    logInContainer.style.display = "block";
-  });
+}
