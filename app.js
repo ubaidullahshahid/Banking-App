@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
   if (checkLogIn) {
     window.location.href("./index.html");
   } else {
-    window.location.replace("../Log-in-user/login.html");
+    window.location.replace("./Components/Log-in-user/login.html");
   }
 });
 
@@ -41,7 +41,7 @@ function signUp() {
   });
   if (!signUpCheckUser) {
     userInputValues.push(newUserInputValues);
-    window.location.href = "../Log-in-user/login.html";
+    window.location.href = "./Components/Log-in-user/login.html";
   } else {
     alert("you already have account");
   }
@@ -117,6 +117,6 @@ function logOut() {
   if (checkLogIn) {
     userLogIn = false;
     localStorage.setItem("userLogin", JSON.stringify(userLogIn));
-    window.location.href = "../Log-in-user/login.html";
+    window.location.href = "./Components/Log-in-user/login.html";
   }
 }
