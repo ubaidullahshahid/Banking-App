@@ -67,7 +67,7 @@ function logIn() {
         userLogIn = true;
         if (userLogIn) {
           localStorage.setItem("userLogin", JSON.stringify(userLogIn));
-          window.location.replace = "/";
+          // window.location.replace = "/";
         }
       } else {
         alert("Invalid email or password");
