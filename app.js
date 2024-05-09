@@ -14,9 +14,9 @@ document.addEventListener("DOMContentLoaded", function (e) {
   currentAmount.innerText = checkUser.amount + "Rs";
   var checkLogIn = JSON.parse(localStorage.getItem("userLogin"));
   if (checkLogIn) {
-    window.location.href("./index.html");
+    window.location.href("/");
   } else {
-    window.location.replace("./Components/Log-in-user/login.html");
+    window.location.replace("Components/Log-in-user/login.html");
   }
 });
 
@@ -41,7 +41,7 @@ function signUp() {
   });
   if (!signUpCheckUser) {
     userInputValues.push(newUserInputValues);
-    window.location.href = "./Components/Log-in-user/login.html";
+    window.location.href = "Components/Log-in-user/login.html";
   } else {
     alert("you already have account");
   }
@@ -67,7 +67,7 @@ function logIn() {
         userLogIn = true;
         if (userLogIn) {
           localStorage.setItem("userLogin", JSON.stringify(userLogIn));
-          window.location.href = "./index.html";
+          window.location.href = "/";
         }
       } else {
         alert("Invalid email or password");
@@ -117,6 +117,6 @@ function logOut() {
   if (checkLogIn) {
     userLogIn = false;
     localStorage.setItem("userLogin", JSON.stringify(userLogIn));
-    window.location.href = "./Components/Log-in-user/login.html";
+    window.location.href = "Components/Log-in-user/login.html";
   }
 }
