@@ -66,7 +66,7 @@ function logIn() {
       if (checkUser.password === loginInputValues[0]) {
         userLogIn = true;
         if (userLogIn) {
-          window.location.href = "/";
+          window.location.href = "Pages/index.html";
         }
       } else {
         alert("Invalid email or password");
