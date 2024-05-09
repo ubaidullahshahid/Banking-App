@@ -41,7 +41,7 @@ function signUp() {
   });
   if (!signUpCheckUser) {
     userInputValues.push(newUserInputValues);
-    window.location.href = "Components/Sign-up-user/signup.html";
+    window.location.href("/");
   } else {
     alert("you already have account");
   }
