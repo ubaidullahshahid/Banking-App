@@ -2,19 +2,17 @@
 var deposit;
 var withDraw;
 var userInputValues = JSON.parse(localStorage.getItem("userData")) || [];
+var loginCurrentIndex = JSON.parse(localStorage.getItem("currentIndex"));
 var currentUserIndex = 0;
 document.addEventListener("DOMContentLoaded", function (e) {
   withDraw = document.querySelector("#withdraw");
   deposit = document.querySelector("#deposit");
   var setUserName = document.querySelector("#set-userName");
-  var checkUserName = localStorage.getItem("userName");
-  console.log("CheckUsername", checkUserName);
-  setUserName.innerText = "Hi " + checkUserName;
+  var checkUser = userInputValues[loginCurrentIndex];
+  setUserName.innerText = "Hi " + checkUser.userName;
   var currentAmount = document.querySelector("#current-amount");
-  var checkUserCurrentAmount = localStorage.getItem("userAmount");
-  currentAmount.innerText = checkUserCurrentAmount + "Rs";
+  currentAmount.innerText = checkUser.amount + "Rs";
   var checkLogIn = JSON.parse(localStorage.getItem("userLogin"));
-  console.log("checkLogIn", checkLogIn);
   if (checkLogIn) {
     window.location.href("/");
   } else {
@@ -68,8 +66,6 @@ function logIn() {
       if (checkUser.password === loginInputValues[0]) {
         userLogIn = true;
         if (userLogIn) {
-          localStorage.setItem("userName", checkUser.userName);
-          localStorage.setItem("userAmount", checkUser.amount);
           localStorage.setItem("userLogin", JSON.stringify(userLogIn));
           window.location.href = "/";
         }
@@ -80,6 +76,7 @@ function logIn() {
     if (!checkUser) {
       alert("You Don't have account");
     }
+    localStorage.setItem("currentIndex", JSON.stringify(currentUserIndex));
   }
 }
 // deposit Function
@@ -87,14 +84,10 @@ function logIn() {
 function handleDeposit() {
   var inputValue = +deposit.value;
   if (inputValue > 0) {
-    userInputValues[currentUserIndex].amount += inputValue;
+    userInputValues[loginCurrentIndex].amount += inputValue;
     localStorage.setItem("userData", JSON.stringify(userInputValues));
-    localStorage.setItem(
-      "userAmount",
-      userInputValues[currentUserIndex].amount
-    );
     document.getElementById("current-amount").innerText =
-      userInputValues[currentUserIndex].amount + "RS";
+      userInputValues[loginCurrentIndex].amount + "RS";
     deposit.value = null;
     alert("you have deposited " + inputValue + "RS");
   } else {
@@ -106,14 +99,10 @@ function handleDeposit() {
 
 function withdraw() {
   var inputValue = +withDraw.value;
-  var currentUser = userInputValues[currentUserIndex];
+  var currentUser = userInputValues[loginCurrentIndex];
   if (inputValue > 0 && inputValue <= currentUser.amount) {
     currentUser.amount -= inputValue;
     localStorage.setItem("userData", JSON.stringify(userInputValues));
-    localStorage.setItem(
-      "userAmount",
-      userInputValues[currentUserIndex].amount
-    );
     document.getElementById("current-amount").innerText =
       currentUser.amount + "RS";
     withDraw.value = null;
@@ -124,9 +113,6 @@ function withdraw() {
 }
 
 function logOut() {
-  // localStorage.removeItem("userName");
-  // localStorage.removeItem("userAmount");
-  // console.log(userLogIn)
   checkLogIn = JSON.parse(localStorage.getItem("userLogin"));
   if (checkLogIn) {
     userLogIn = false;
