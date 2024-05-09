@@ -66,8 +66,7 @@ function logIn() {
       if (checkUser.password === loginInputValues[0]) {
         userLogIn = true;
         if (userLogIn) {
-          localStorage.setItem("userLogin", JSON.stringify(userLogIn));
-          window.location.href="/";
+          window.location.href = "/";
         }
       } else {
         alert("Invalid email or password");
@@ -76,6 +75,7 @@ function logIn() {
     if (!checkUser) {
       alert("You Don't have account");
     }
+    localStorage.setItem("userLogin", JSON.stringify(userLogIn));
     localStorage.setItem("currentIndex", JSON.stringify(currentUserIndex));
   }
 }
