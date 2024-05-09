@@ -41,7 +41,7 @@ function signUp() {
   });
   if (!signUpCheckUser) {
     userInputValues.push(newUserInputValues);
-    window.location.href = "Components/Log-in-user/login.html";
+    window.location.href = "Components/Sign-up-user/signup.html";
   } else {
     alert("you already have account");
   }
@@ -67,7 +67,7 @@ function logIn() {
         userLogIn = true;
         if (userLogIn) {
           localStorage.setItem("userLogin", JSON.stringify(userLogIn));
-          // window.location.replace = "/";
+          window.location.replace = "/";
         }
       } else {
         alert("Invalid email or password");
