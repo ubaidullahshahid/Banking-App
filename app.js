@@ -3,7 +3,6 @@ var deposit;
 var withDraw;
 var userInputValues = JSON.parse(localStorage.getItem("userData")) || [];
 var currentUserIndex = 0;
-
 document.addEventListener("DOMContentLoaded", function (e) {
   withDraw = document.querySelector("#withdraw");
   deposit = document.querySelector("#deposit");
@@ -14,6 +13,13 @@ document.addEventListener("DOMContentLoaded", function (e) {
   var currentAmount = document.querySelector("#current-amount");
   var checkUserCurrentAmount = localStorage.getItem("userAmount");
   currentAmount.innerText = checkUserCurrentAmount + "Rs";
+  var checkLogIn = JSON.parse(localStorage.getItem("userLogin"));
+  console.log("checkLogIn", checkLogIn);
+  if (checkLogIn) {
+    window.location.href("/");
+  } else {
+    window.location.replace("/Components/Log-in-user/login.html");
+  }
 });
 
 var signUpPasswordfield = document.querySelector("#signup-password");
@@ -29,7 +35,7 @@ function signUp() {
     email: signUpInputValues[1],
     password: signUpInputValues[0],
     amount: 0,
-    userName: userName1.value,
+    userName: userName.value,
   };
   var signUpCheckUser;
   signUpCheckUser = userInputValues.find(function (user) {
@@ -64,7 +70,8 @@ function logIn() {
         if (userLogIn) {
           localStorage.setItem("userName", checkUser.userName);
           localStorage.setItem("userAmount", checkUser.amount);
-          window.location.href = "/index.html";
+          localStorage.setItem("userLogin", JSON.stringify(userLogIn));
+          window.location.href = "/";
         }
       } else {
         alert("Invalid email or password");
@@ -114,4 +121,17 @@ function withdraw() {
   } else {
     alert("You Don't have  enough amount to withdraw");
   }
+}
+
+function logOut() {
+  // localStorage.removeItem("userName");
+  // localStorage.removeItem("userAmount");
+  // console.log(userLogIn)
+  checkLogIn = JSON.parse(localStorage.getItem("userLogin"));
+  if (checkLogIn) {
+    userLogIn = false;
+    localStorage.setItem("userLogin", JSON.stringify(userLogIn));
+    window.location.href = "/Components/Log-in-user/login.html";
+  }
+  // window.location.href = "/Components/Log-in-user/login.html";
 }
