@@ -41,7 +41,7 @@ function signUp() {
   });
   if (!signUpCheckUser) {
     userInputValues.push(newUserInputValues);
-    window.location.href("/");
+    window.location.href = "Components/Log-in-user/login.html";
   } else {
     alert("you already have account");
   }
@@ -67,7 +67,7 @@ function logIn() {
         userLogIn = true;
         if (userLogIn) {
           localStorage.setItem("userLogin", JSON.stringify(userLogIn));
-          window.location.replace = "/";
+          window.location.href = "/";
         }
       } else {
         alert("Invalid email or password");
@@ -115,8 +115,8 @@ function withdraw() {
 function logOut() {
   checkLogIn = JSON.parse(localStorage.getItem("userLogin"));
   if (checkLogIn) {
+    // window.location.href = "Components/Log-in-user/login.html";
     userLogIn = false;
     localStorage.setItem("userLogin", JSON.stringify(userLogIn));
-    window.location.href = "Components/Log-in-user/login.html";
   }
 }
