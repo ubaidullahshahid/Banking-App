@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
   if (checkLogIn) {
     window.location.href("/");
   } else {
-    window.location.replace("/Components/Log-in-user/login.html");
+    window.location.replace("Components/Log-in-user/login.html");
   }
 });
 
