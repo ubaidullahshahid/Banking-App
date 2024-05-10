@@ -13,10 +13,11 @@ document.addEventListener("DOMContentLoaded", function (e) {
   var currentAmount = document.querySelector("#current-amount");
   currentAmount.innerText = checkUser.amount + "Rs";
   var checkLogIn = JSON.parse(localStorage.getItem("userLogin"));
+  console.log(checkLogIn);
   if (checkLogIn) {
     window.location.href("/");
   } else {
-    window.location.replace("Components/Log-in-user/login.html");
+    window.location.replace("/Components/Log-in-user/login.html");
   }
 });
 
@@ -25,7 +26,6 @@ var signUpEmailfield = document.querySelector("#signup-email");
 var userName = document.querySelector("#user-name");
 
 // signup Function
-
 function signUp() {
   userName.value;
   var signUpInputValues = [signUpPasswordfield.value, signUpEmailfield.value];
