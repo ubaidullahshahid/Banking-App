@@ -12,12 +12,12 @@ document.addEventListener("DOMContentLoaded", function (e) {
   setUserName.innerText = "Hi " + checkUser.userName;
   var currentAmount = document.querySelector("#current-amount");
   currentAmount.innerText = checkUser.amount + "Rs";
-  // var checkLogIn = JSON.parse(localStorage.getItem("userLogin"));
-  // if (checkLogIn) {
-  //   window.location.href("/");
-  // } else {
-  //   window.location.replace("Components/Log-in-user/login.html");
-  // }
+  var checkLogIn = JSON.parse(localStorage.getItem("userLogin"));
+  if (checkLogIn) {
+    window.location.href("/");
+  } else {
+    window.location.replace("Components/Log-in-user/login.html");
+  }
 });
 
 var signUpPasswordfield = document.querySelector("#signup-password");
